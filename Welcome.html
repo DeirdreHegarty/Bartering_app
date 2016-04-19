@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SwapYa!</title>
+  <!--to change the icon in the browser tab-->
+<link rel="shortcut icon" type="image/png" href="favicon-32x32.png" sizes="32x32"  />
+<link rel="shortcut icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!-- Firebase -->
+	<script src='https://cdn.firebase.com/js/client/2.4.1/firebase.js'></script>
+	<!-- AngularJS -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <style>
+
+    /* Remove the gap underneath the jumbotron (between its bottom and the nav bar) */ 
+     .jumbotron {
+	  height: 100vh;	//makes jumborton fill the viewpoint height
+      margin-bottom: 0;
+      background:linear-gradient(#EDF1F2, #7AABFA) fixed;
+    }
+   
+    /* Add a background colour and some padding to the footer */
+    footer {
+	  background-color: #ff9933;
+      padding: 25px;
+    }
+     body {
+     position: relative; 
+  }
+  /*code for the navbar "sticking" when scrolled*/
+  .affix {
+      top:0;
+      width: 100%;
+      z-index: 9999 !important;
+  }
+/*container-fluid to fill the viewpoint width*/
+  .affix ~ .container-fluid {
+     position: relative;
+     top: 50px;
+  }
+  .SwapYaLogo{
+  float: left;
+  }
+  .TextLogo{
+  float:left;
+  margin-top: 60px;
+  padding-top:20px;
+  }
+  /*scroll for overflow so rows are even height*/
+	.fixed-panel {
+	overflow-y: scroll;
+	height: 100px;
+	}
+	#welcomelogin{
+	margin-top:10px;
+	text-align: center;
+	}
+  #WelcomeButtons{
+  margin-top:60px;
+  }
+  .but{
+  width: 230px;
+  height: 90px;
+  font-family: Verdana;
+  font-weight: bold;
+  font-size: 130%;
+  border: transparent;
+  border-style: solid;
+  border-width:10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 5px 5px 5px;
+  cursor: pointer;
+  }
+
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+  <div class="container text-right">
+  <p>Swap, Learn & Barter</p>
+  	<div class="row">
+   		<div class="col-sm-2"> 
+  		<a href="SwapYa.html"><img class= "SwapYaLogo" src="SwapYaLogo.png" height= 200px;></a>
+  		</div>
+				<h5><a id= "create_account"href= "CreateUser.html">Create an account</a></h5>
+				<h5><a id= "login" href= "Login.html">Login</a></h5>
+  		<div class="col-sm-6"> 
+  		<img class= "TextLogo" src="text.png">
+  		</div>
+		<div class="col-sm-4"></div>
+	</div>
+	<br/>
+	<div id="WelcomeButtons">
+	<div class="row">
+	<div class="col-sm-2"></div>
+		<div class="col-sm-3">
+		<button type="button" onClick="homeFun()" class="btn btn-primary btn-lg but">SwapYa Stuff</button>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-3">
+		<button type="button" onClick="homeFun()" class="btn btn-primary btn-lg but">SwapYa Skills</button>
+		</div>
+	<div class="col-sm-2"></div>
+	</div>
+  </div>
+  
+  	<script>
+		function homeFun(){
+			window.location.href="SwapYa.html";
+		}
+	</script>
+</body>
+</html>
