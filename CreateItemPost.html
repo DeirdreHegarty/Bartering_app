@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SwapYa!</title>
+    <!--to change the icon in the browser tab-->
+<link rel="shortcut icon" type="image/png" href="favicon-32x32.png" sizes="32x32"  />
+<link rel="shortcut icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!-- Firebase -->
+	<script src='https://cdn.firebase.com/js/client/2.4.1/firebase.js'></script>
+	<!-- AngularJS -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+      background-color :#ff9933;
+      border-color: transparent;
+    }
+    /* changing the font color of the navBar */
+    .nav.navbar-nav li a {
+    color: black;
+	}
+	
+    /* Remove the gap underneath the jumbotron (between its bottom and the nav bar) */ 
+     .jumbotron {
+      margin-bottom: 0;
+      background:linear-gradient(#EDF1F2, #7AABFA) fixed;
+    }
+   
+    /* Add a background colour and some padding to the footer */
+    footer {
+	  background-color: #ff9933;
+      padding: 25px;
+    }
+     body {
+     position: relative; 
+  }
+  /*code for the navbar "sticking" when scrolled*/
+  .affix {
+      top:0;
+      width: 100%;
+      z-index: 9999 !important;
+  }
+/*container-fluid to fill the viewpoint width*/
+  .affix ~ .container-fluid {
+     position: relative;
+     top: 50px;
+  }
+  .SwapYaLogo{
+  float: left;
+  }
+  .TextLogo{
+  float:left;
+  margin-top: 60px;
+  padding-top:20px;
+  }
+  /*scroll for overflow so rows are even height*/
+	.fixed-panel {
+	overflow-y: scroll;
+	height: 100px;
+	}
+		#welcomelogin{
+	text-align: center;
+	}
+
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+  <div class="container text-right">
+  <p>Swap, Learn & Barter</p>
+  	<div class="row">
+   		<div class="col-sm-2"> 
+  		<a href="SwapYa.html"><img class= "SwapYaLogo" src="SwapYaLogo.png" height= 200px;></a>
+  		</div>
+  		<div class="col-sm-6"> 
+  		<img class= "TextLogo" src="text.png">
+  		</div>
+  		
+  	 	<div class="col-sm-4"> 
+        	<div class="input-group">
+        	<input type="text" class="form-control" placeholder="Search an Item or Skill..">
+        	<span class="input-group-btn">
+          		<button class="btn btn-default" type="button">
+            	<span class="glyphicon glyphicon-search"></span>
+          		</button>
+        		</span>
+        		</div>
+        		</div>
+      		</div>
+    	</div>
+	</div>
+  </div>
+</div>
+
+<!--Code for nav bar-->
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a id="homeLink" href="SwapYa.html" style="cursor: pointer;">Home</a></li>
+          <li><a id="skillLink" href="CreateSkillPost.html" style="cursor: pointer;">Add Skills</a></li>
+        </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="UserProfile.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a id = "loginLink" href="Login.html" style="cursor: pointer;">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--end of nav bar-->
+<!--start of container for rows-->
+<div class="container">
+<br/><br/>
+<h1 id="welcomelogin">Create an Item Post</h1>
+	<div class="row">
+	<br/><br/><br/>
+	<div class="col-sm-4"></div>
+
+	<div class="col-sm-4">	
+		<form role="form">
+		<div class="form-group">
+			<label for="titleInput">Title</label><br/>
+			<input type='text' id='titleInput' placeholder='Title'>
+		</div>
+		<div class="form-group">
+		<label for="inputFileToLoad">Image<label>
+			<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();">
+		</div>
+				<div class="form-group">
+		<label for="descriptionInput">Description</label>
+			<textarea class="form-control" rows ="10" id='descriptionInput'></textarea>
+		</div>
+		<div class="form-group">
+			<button type='submit' class="btn btn-info btn-md" id='submitBtn3'>Submit</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-sm-4"></div>
+</div>	<!--end of row-->
+<br/>
+</div>	<!--end of container-->
+<br/>
+<!--footer with copyright symbol-->
+<footer class="container-fluid text-center">
+  <p>SwapYa Copyright <span class="glyphicon glyphicon-copyright-mark"></span></p>
+</footer>
+<script type='text/javascript'>
+var userRef = new Firebase('FIREBASE LINK HERE');
+var authData = userRef.getAuth();
+var id = authData.uid;
+var email = authData.password.email;
+var username;
+
+		    
+userRef.orderByChild("email").equalTo(email).on("child_added", function(snapshot) {
+		username = snapshot.val().username;
+});
+
+var srcData;
+function encodeImageFileAsURL(){
+
+		    var filesSelected = document.getElementById("inputFileToLoad").files;
+		    if (filesSelected.length > 0)
+		    {
+		        var fileToLoad = filesSelected[0];
+
+		        var fileReader = new FileReader();
+
+		        fileReader.onload = function(fileLoadedEvent) {
+		        	//this converts are img into base64
+		            srcData = fileLoadedEvent.target.result; 
+		  			//stores the string in the database
+					
+		            alert(Image uploaded);
+					}
+				
+		        }
+		        fileReader.readAsDataURL(fileToLoad);
+		    }
+var itemRef = new Firebase('FIREBASE LINK HERE');
+$("#submitBtn3").click(myItemFunction);
+		function myItemFunction()	{
+		
+          var title = $('#titleInput').val();
+		  var description = $('#descriptionInput').val();
+		  var userID = id;
+		  
+          itemRef.push({title: title, photo: srcData, description: description, userID: userID, username: username});
+		  window.location="ViewItemPost.html";
+		  return false;
+		
+		}
+		</script>
+</body>
+</html>
